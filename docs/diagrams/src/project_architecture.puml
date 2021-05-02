@@ -1,0 +1,79 @@
+@startuml Project architecture
+skinparam linetype ortho
+skinparam style strictuml
+class Campaign {
+    name
+    characters
+    locations
+    creatures
+    quests
+    notes
+    filter_notes()
+    save()
+    import()
+}
+class Character {
+    name
+    species
+    class
+    alignment
+    profession
+    abilities
+    possessions
+    is_playable_character
+    is_alive
+    tag
+}
+class Creature {
+    String species
+    agressiveness
+    attacks
+    resistances
+    immunities
+    tag
+}
+class Item {
+    name
+    type
+    stats
+    is_magical
+    is_cursed
+    tag
+}
+class Location {
+    name
+    location
+    type
+    tag
+}
+class Quest {
+    giver
+    previous_quest
+    goal
+    target_location
+    reward
+    is_completed
+    tag
+}
+class Note {
+    text
+    tags
+    timestamp
+    has_tag()
+}
+
+Campaign o-right- Character
+Campaign o-down- Creature
+Campaign o-down- Item
+Campaign o-down- Location
+Campaign o-down- Quest
+Campaign o-left- Note
+
+note top of Note
+- keep notes class as simple as possible.
+- Use tags to link notes with subclasses
+- Notes should be part of a campaign but not limited to 1 campaign
+- In GUI: make elements to store important data in other classes.
+  Example: note about character's profession edits Character::profession
+end note
+@enduml
