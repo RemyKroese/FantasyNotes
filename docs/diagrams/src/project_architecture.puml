@@ -25,7 +25,7 @@ class Character {
     tag
 }
 class Creature {
-    String species
+    species
     agressiveness
     attacks
     resistances
