@@ -10,10 +10,10 @@ import pytest
 ####################################################################################################
 
 TEST_CAMPAIGN_NAME = 'my campaign'
-TEST_NOTE_1 = m.Note('note 1')
-TEST_NOTE_2 = m.Note('note 2')
-TEST_NOTE_3 = m.Note('new note 1')
-TEST_NOTE_4 = m.Note('existing note 1')
+TEST_NOTE_1 = m.Note(text='note 1', tags=['Tag1', 'Tag_ALL'])
+TEST_NOTE_2 = m.Note(text='note 2', tags=['Tag2', 'Tag_ALL'])
+TEST_NOTE_3 = m.Note(text='new note 1', tags=['Tag1', 'Tag2', 'Tag_ALL'])
+TEST_NOTE_4 = m.Note(text='existing note 1')
 
 
 def test_can_edit_campaign_name():
@@ -46,6 +46,20 @@ def test_can_remove_notes_from_campaign(removed_notes, existing_notes, expected_
         campaign.remove_note(note)
     for i in range(len(campaign.notes)):
         assert campaign.notes[i] == expected_notes_list[i]
+
+
+@pytest.mark.parametrize('tag, existing_notes, expected_notes_list', [
+    ('Tag1', [TEST_NOTE_1], [TEST_NOTE_1]),
+    ('Tag1', [TEST_NOTE_2], []),
+    ('Tag2', [TEST_NOTE_1, TEST_NOTE_2], [TEST_NOTE_2]),
+    ('Tag1', [TEST_NOTE_1, TEST_NOTE_2, TEST_NOTE_3], [TEST_NOTE_1, TEST_NOTE_3]),
+    ('Tag2', [TEST_NOTE_1, TEST_NOTE_2, TEST_NOTE_3], [TEST_NOTE_2, TEST_NOTE_3]),
+    ('Tag4', [TEST_NOTE_1, TEST_NOTE_2, TEST_NOTE_3], []),
+    ('Tag_ALL', [TEST_NOTE_1, TEST_NOTE_2, TEST_NOTE_3], [TEST_NOTE_1, TEST_NOTE_2, TEST_NOTE_3])])
+def test_can_filter_notes_from_campaign(tag, existing_notes, expected_notes_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, notes=existing_notes)
+    filtered_notes = campaign.filter_notes(tag)
+    assert filtered_notes == expected_notes_list
 
 
 ####################################################################################################

@@ -1,8 +1,10 @@
+from __future__ import annotations
 from datetime import datetime
 
 
 class Campaign:
-    def __init__(self, name, characters=[], locations=[], creatures=[], quests=[], notes=[]):
+    def __init__(self, name, characters: list[Character] = [], locations: list[Location] = [],
+                 creatures: list[Creature] = [], quests: list[Quest] = [], notes: list[Note] = []):
         self.name = name
         self.characters = characters
         self.locations = locations
@@ -42,6 +44,9 @@ class Campaign:
 
     def remove_note(self, note):
         self.notes.remove(note)
+
+    def filter_notes(self, tag):
+        return [note for note in self.notes if tag in note.tags]
 
 
 class Note:
