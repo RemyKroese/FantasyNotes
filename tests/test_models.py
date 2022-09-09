@@ -1,9 +1,26 @@
-import src.models as m
-import datetime
+import backend.models as m
+from datetime import datetime
 import pytest
 
-TEST_CURRENT_TIME = datetime.datetime.now()
+TEST_CAMPAIGN_NAME = 'my campaign'
+TEST_CURRENT_TIME = datetime.now()
 TEST_NOTE_TEXT = 'my note'
+TEST_NOTE_1 = m.Note('note 1')
+TEST_NOTE_2 = m.Note('note 2')
+TEST_NOTE_3 = m.Note('new note 1')
+TEST_NOTE_4 = m.Note('existing note 1')
+
+
+@pytest.mark.parametrize('new_notes, existing_notes, expected_notes_list', [
+    ([TEST_NOTE_1], [], [TEST_NOTE_1]),
+    ([TEST_NOTE_1, TEST_NOTE_2], [], [TEST_NOTE_1, TEST_NOTE_2]),
+    ([TEST_NOTE_3], [TEST_NOTE_4], [TEST_NOTE_4, TEST_NOTE_3])])
+def test_add_notes_to_campaign(new_notes, existing_notes, expected_notes_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, notes=existing_notes)
+    for note in new_notes:
+        campaign.add_note(note)
+    for i in range(len(campaign.notes)):
+        assert campaign.notes[i] == expected_notes_list[i]
 
 
 @pytest.mark.parametrize('note_tags, requested_tag', [
