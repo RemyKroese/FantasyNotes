@@ -116,7 +116,7 @@ class Creature:
         self.attacks = attacks
         self.resistances = resistances
         self.immunities = immunities
-        self.tag = {'type': type(self), 'name': self.name}
+        self.tag = {'type': type(self), 'name': self.species}
 
     def edit_species(self, species):
         self.species = species
@@ -144,9 +144,9 @@ class Creature:
 
 
 class Item:
-    def __init__(self, name='', type='', stats=[], is_magical=False, is_cursed=False):
+    def __init__(self, name='', i_type='', stats=[], is_magical=False, is_cursed=False):
         self.name = name
-        self.type = type
+        self.i_type = i_type
         self.stats = stats
         self.is_magical = is_magical
         self.is_cursed = is_cursed
@@ -172,9 +172,9 @@ class Item:
 
 
 class Location:
-    def __init__(self, name='', type=''):
+    def __init__(self, name='', l_type=''):
         self.name = name
-        self.type = type
+        self.l_type = l_type
         self.tag = {'type': type(self), 'name': self.name}
 
     def edit_name(self, name):
