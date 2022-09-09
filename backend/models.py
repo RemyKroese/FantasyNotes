@@ -75,6 +75,39 @@ class Character:
         self.is_alive = is_alive
         self.tag = {'type': type(self), 'name': self.name}
 
+    def edit_name(self, name):
+        self.name = name
+
+    def edit_species(self, species):
+        self.species = species
+
+    def edit_class(self, c_class):
+        self.c_class = c_class
+
+    def edit_alignment(self, alignment):
+        self.alignment = alignment
+
+    def edit_profession(self, profession):
+        self.profession = profession
+
+    def add_ability(self, ability):
+        self.abilities.append(ability)
+
+    def remove_ability(self, ability):
+        self.abilities.remove(ability)
+
+    def add_possession(self, possession):
+        self.possessions.append(possession)
+
+    def remove_possession(self, possession):
+        self.possessions.remove(possession)
+
+    def set_is_playable(self, is_playable):
+        self.is_playable = is_playable
+
+    def set_is_alive(self, is_alive):
+        self.is_alive = is_alive
+
 
 class Creature:
     def __init__(self, species='', agressiveness='', attacks=[], resistances=[], immunities=[]):
@@ -85,32 +118,97 @@ class Creature:
         self.immunities = immunities
         self.tag = {'type': type(self), 'name': self.name}
 
+    def edit_species(self, species):
+        self.species = species
+
+    def edit_agressiveness(self, agressiveness):
+        self.agressiveness = agressiveness
+
+    def add_attack(self, attack):
+        self.attacks.append(attack)
+
+    def remove_attack(self, attack):
+        self.attacks.remove(attack)
+
+    def add_resistance(self, resistance):
+        self.resistances.append(resistance)
+
+    def remove_resistance(self, resistance):
+        self.resistances.remove(resistance)
+
+    def add_immunity(self, immunity):
+        self.immunities.append(immunity)
+
+    def remove_immunity(self, immunity):
+        self.immunities.remove(immunity)
+
 
 class Item:
-    def __init__(self, name='', type='', stats='', is_magical=False, is_cursed=False):
-        self.name = None
-        self.type = None
-        self.stats = None
-        self.is_magical = None
-        self.is_cursed = None
+    def __init__(self, name='', type='', stats=[], is_magical=False, is_cursed=False):
+        self.name = name
+        self.type = type
+        self.stats = stats
+        self.is_magical = is_magical
+        self.is_cursed = is_cursed
         self.tag = {'type': type(self), 'name': self.name}
+
+    def edit_name(self, name):
+        self.name = name
+
+    def edit_type(self, type):
+        self.type = type
+
+    def add_stat(self, stat):
+        self.stats.append(stat)
+
+    def remove_stat(self, stat):
+        self.stats.remove(stat)
+
+    def set_is_magical(self, is_magical):
+        self.is_magical = is_magical
+
+    def set_is_cursed(self, is_cursed):
+        self.is_cursed = is_cursed
 
 
 class Location:
-    def __init__(self, name='', location='', type=''):
+    def __init__(self, name='', type=''):
         self.name = name
-        self.location = location
         self.type = type
         self.tag = {'type': type(self), 'name': self.name}
 
+    def edit_name(self, name):
+        self.name = name
+
+    def edit_type(self, type):
+        self.type = type
+
 
 class Quest:
-    def __init__(self, giver='', previous_quest=None, goal='',
+    def __init__(self, giver='', previous_quest=None, objective='',
                  target_location='', reward='', is_completed=False):
         self.giver = giver
         self.previous_quest = previous_quest
-        self.goal = goal
+        self.objective = objective
         self.target_location = target_location
-        self.reward = None
-        self.is_completed = None
+        self.reward = reward
+        self.is_completed = is_completed
         self.tag = {'type': type(self), 'name': self.giver}
+
+    def edit_giver(self, giver):
+        self.giver = giver
+
+    def edit_previous_quest(self, previous_quest):
+        self.previous_quest = previous_quest
+
+    def edit_objective(self, objective):
+        self.objective = objective
+
+    def edit_target_location(self, target_location):
+        self.target_location = target_location
+
+    def edit_reward(self, reward):
+        self.reward = reward
+
+    def set_is_completed(self, is_completed):
+        self.is_completed = is_completed
