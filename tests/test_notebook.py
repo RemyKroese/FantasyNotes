@@ -53,6 +53,14 @@ quest2 = m.Quest(giver='Waterdeep\'s mayor', previous_quest=None,
                  target_location='Waterdeep\'s city centre',
                  reward='100 Gold', is_completed=False)
 
+item1 = m.Item(name='Lightbringer', i_type='magic weapon',
+               stats=['+1 to attack rolls', '+1d6 bonus damage to undead'],
+               is_magical=True, is_cursed=False)
+
+item2 = m.Item(name='Dagger+1', i_type='Melee weapon',
+               stats=['+1 to attack rolls', ],
+               is_magical=False, is_cursed=False)
+
 note1 = m.Note(text='Jeremiah comes from Waterdeep',
                timestamp=datetime.strptime('2022-09-10 00:00:00', '%Y-%m-%d %H:%M:%S'),
                tags=['Jeremiah', 'Waterdeep'])
@@ -64,7 +72,7 @@ note2 = m.Note(text='The dragon is near Neverwinter',
 def test_can_save_campaign_to_file():
     campaign = m.Campaign(name='campaign_1', characters=[character1, character2],
                           locations=[location1, location2], creatures=[creature1, creature2],
-                          quests=[quest1, quest2], notes=[note1, note2])
+                          quests=[quest1, quest2], items=[item1, item2], notes=[note1, note2])
 
     expected_result = ASSETS + 'expected_campaign_data.json'
     result_file_path = 'saves/campaign_1.json'
