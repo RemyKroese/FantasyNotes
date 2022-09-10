@@ -36,15 +36,7 @@ creature2 = m.Creature(species='Demon', agressiveness='Hostile',
                        resistances=['Slashing'],
                        immunities=['Fire', 'Thunder', 'Lightning'])
 
-subquest1 = m.Quest(giver='Arthur', previous_quest=None,
-                    objective='Find the lost cave',
-                    target_location='The forest',
-                    reward='20 Gold', is_completed=True)
-subquest2 = m.Quest(giver='Arthur', previous_quest=subquest1,
-                    objective='Investigate the lost cave',
-                    target_location='The lost cave',
-                    reward='50 Gold', is_completed=True)
-quest1 = m.Quest(giver='Arthur', previous_quest=subquest2,
+quest1 = m.Quest(giver='Arthur', previous_quest='Find the dragon\'s lair',
                  objective='Kill the dragon.',
                  target_location='Dragon\'s lair in the lost cave',
                  reward='100 Gold', is_completed=False)
@@ -68,12 +60,12 @@ note2 = m.Note(text='The dragon is near Neverwinter',
                timestamp=datetime.strptime('2022-09-10 00:00:00', '%Y-%m-%d %H:%M:%S'),
                tags=['Dragon', 'Neverwinter'])
 
+campaign = m.Campaign(name='campaign_1', characters=[character1, character2],
+                      locations=[location1, location2], creatures=[creature1, creature2],
+                      quests=[quest1, quest2], items=[item1, item2], notes=[note1, note2])
+
 
 def test_can_save_campaign_to_file():
-    campaign = m.Campaign(name='campaign_1', characters=[character1, character2],
-                          locations=[location1, location2], creatures=[creature1, creature2],
-                          quests=[quest1, quest2], items=[item1, item2], notes=[note1, note2])
-
     expected_result = ASSETS + 'expected_campaign_data.json'
     result_file_path = 'saves/campaign_1.json'
     if os.path.exists(result_file_path):
@@ -81,3 +73,9 @@ def test_can_save_campaign_to_file():
     notebook.save_campaign_data(campaign)
     assert os.path.exists(result_file_path)
     assert filecmp.cmp(result_file_path, expected_result) is True
+
+
+def test_can_load_campaign_from_file():
+    result_file_path = ASSETS + 'expected_campaign_data.json'
+    loaded_campaign = notebook.load_campaign_data(result_file_path)
+    assert loaded_campaign.notes == campaign.notes

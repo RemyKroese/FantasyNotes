@@ -106,29 +106,7 @@
     "quests": [
         {
             "giver": "Arthur",
-            "previous_quest": {
-                "giver": "Arthur",
-                "previous_quest": {
-                    "giver": "Arthur",
-                    "previous_quest": null,
-                    "objective": "Find the lost cave",
-                    "target_location": "The forest",
-                    "reward": "20 Gold",
-                    "is_completed": true,
-                    "tag": {
-                        "type": "Quest",
-                        "name": "Arthur"
-                    }
-                },
-                "objective": "Investigate the lost cave",
-                "target_location": "The lost cave",
-                "reward": "50 Gold",
-                "is_completed": true,
-                "tag": {
-                    "type": "Quest",
-                    "name": "Arthur"
-                }
-            },
+            "previous_quest": "Find the dragon's lair",
             "objective": "Kill the dragon.",
             "target_location": "Dragon's lair in the lost cave",
             "reward": "100 Gold",
