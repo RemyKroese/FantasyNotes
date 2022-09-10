@@ -22,13 +22,13 @@ def save_campaign_data(campaign):
         os.makedirs('saves')
     file_path = 'saves/' + str(campaign.name) + '.json'
     with open(file_path, 'w') as write_file:
-        json.dump(campaign.__dict__, write_file, cls=ComplexEncoder, indent=4)
+        json.dump(campaign.data(), write_file, cls=ComplexEncoder, indent=4)
 
 
 class ComplexEncoder(json.JSONEncoder):
     def default(self, obj):
-        if hasattr(obj, '__dict__'):
-            return obj.__dict__
+        if hasattr(obj, 'data'):
+            return obj.data()
         elif isinstance(obj, (datetime.date, datetime.datetime)):
             return obj.isoformat()
         else:
