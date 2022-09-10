@@ -48,6 +48,9 @@ class Campaign:
     def filter_notes(self, tag):
         return [note for note in self.notes if tag in note.tags]
 
+    def data(self):
+        return vars(self)
+
 
 class Note:
     def __init__(self, text, timestamp=datetime.now(), tags=[]):
@@ -65,6 +68,9 @@ class Note:
         for tag in removed_tags:
             self.tags.remove(tag)
 
+    def data(self):
+        return vars(self)
+
 
 class Character:
     def __init__(self, name='', species='', c_class='', alignment='', profession='',
@@ -78,7 +84,7 @@ class Character:
         self.possessions = possessions
         self.is_playable = is_playable
         self.is_alive = is_alive
-        self.tag = {'type': type(self), 'name': self.name}
+        self.tag = {'type': self.__class__.__name__, 'name': self.name}
 
     def edit_name(self, name):
         self.name = name
@@ -113,6 +119,9 @@ class Character:
     def set_is_alive(self, is_alive):
         self.is_alive = is_alive
 
+    def data(self):
+        return vars(self)
+
 
 class Creature:
     def __init__(self, species='', agressiveness='', attacks=[], resistances=[], immunities=[]):
@@ -121,7 +130,7 @@ class Creature:
         self.attacks = attacks
         self.resistances = resistances
         self.immunities = immunities
-        self.tag = {'type': type(self), 'name': self.species}
+        self.tag = {'type': self.__class__.__name__, 'name': self.species}
 
     def edit_species(self, species):
         self.species = species
@@ -147,6 +156,9 @@ class Creature:
     def remove_immunity(self, immunity):
         self.immunities.remove(immunity)
 
+    def data(self):
+        return vars(self)
+
 
 class Item:
     def __init__(self, name='', i_type='', stats=[], is_magical=False, is_cursed=False):
@@ -155,7 +167,7 @@ class Item:
         self.stats = stats
         self.is_magical = is_magical
         self.is_cursed = is_cursed
-        self.tag = {'type': type(self), 'name': self.name}
+        self.tag = {'type': self.__class__.__name__, 'name': self.name}
 
     def edit_name(self, name):
         self.name = name
@@ -175,18 +187,24 @@ class Item:
     def set_is_cursed(self, is_cursed):
         self.is_cursed = is_cursed
 
+    def data(self):
+        return vars(self)
+
 
 class Location:
     def __init__(self, name='', l_type=''):
         self.name = name
         self.l_type = l_type
-        self.tag = {'type': type(self), 'name': self.name}
+        self.tag = {'type': self.__class__.__name__, 'name': self.name}
 
     def edit_name(self, name):
         self.name = name
 
     def edit_type(self, type):
         self.type = type
+
+    def data(self):
+        return vars(self)
 
 
 class Quest:
@@ -198,7 +216,7 @@ class Quest:
         self.target_location = target_location
         self.reward = reward
         self.is_completed = is_completed
-        self.tag = {'type': type(self), 'name': self.giver}
+        self.tag = {'type': self.__class__.__name__, 'name': self.giver}
 
     def edit_giver(self, giver):
         self.giver = giver
@@ -217,3 +235,6 @@ class Quest:
 
     def set_is_completed(self, is_completed):
         self.is_completed = is_completed
+
+    def data(self):
+        return vars(self)
