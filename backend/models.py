@@ -14,6 +14,9 @@ class Campaign:
         self.items = items
         self.notes = notes
 
+    def __eq__(self, other):
+        return self.data() == other.data()
+
     def edit_name(self, new_name):
         self.name = new_name
 
@@ -66,6 +69,9 @@ class Note:
         self.timestamp = timestamp
         self.tags = tags
 
+    def __eq__(self, other):
+        return self.data() == other.data()
+
     def has_tag(self, tag):
         return tag in self.tags
 
@@ -82,7 +88,7 @@ class Note:
 
 class Character:
     def __init__(self, name='', species='', c_class='', alignment='', profession='',
-                 abilities=[], possessions=[], is_playable=False, is_alive=True):
+                 abilities=[], possessions=[], is_playable=False, is_alive=True, tag=None):
         self.name = name
         self.species = species
         self.c_class = c_class
@@ -92,7 +98,10 @@ class Character:
         self.possessions = possessions
         self.is_playable = is_playable
         self.is_alive = is_alive
-        self.tag = {'type': self.__class__.__name__, 'name': self.name}
+        self.tag = tag if tag else {'type': self.__class__.__name__, 'name': self.name}
+
+    def __eq__(self, other):
+        return self.data() == other.data()
 
     def edit_name(self, name):
         self.name = name
@@ -132,13 +141,17 @@ class Character:
 
 
 class Creature:
-    def __init__(self, species='', agressiveness='', attacks=[], resistances=[], immunities=[]):
+    def __init__(self, species='', agressiveness='', attacks=[], resistances=[], immunities=[],
+                 tag=None):
         self.species = species
         self.agressiveness = agressiveness
         self.attacks = attacks
         self.resistances = resistances
         self.immunities = immunities
-        self.tag = {'type': self.__class__.__name__, 'name': self.species}
+        self.tag = tag if tag else {'type': self.__class__.__name__, 'name': self.species}
+
+    def __eq__(self, other):
+        return self.data() == other.data()
 
     def edit_species(self, species):
         self.species = species
@@ -169,13 +182,16 @@ class Creature:
 
 
 class Item:
-    def __init__(self, name='', i_type='', stats=[], is_magical=False, is_cursed=False):
+    def __init__(self, name='', i_type='', stats=[], is_magical=False, is_cursed=False, tag=None):
         self.name = name
         self.i_type = i_type
         self.stats = stats
         self.is_magical = is_magical
         self.is_cursed = is_cursed
-        self.tag = {'type': self.__class__.__name__, 'name': self.name}
+        self.tag = tag if tag else {'type': self.__class__.__name__, 'name': self.name}
+
+    def __eq__(self, other):
+        return self.data() == other.data()
 
     def edit_name(self, name):
         self.name = name
@@ -200,10 +216,13 @@ class Item:
 
 
 class Location:
-    def __init__(self, name='', l_type=''):
+    def __init__(self, name='', l_type='', tag=None):
         self.name = name
         self.l_type = l_type
-        self.tag = {'type': self.__class__.__name__, 'name': self.name}
+        self.tag = tag if tag else {'type': self.__class__.__name__, 'name': self.name}
+
+    def __eq__(self, other):
+        return self.data() == other.data()
 
     def edit_name(self, name):
         self.name = name
@@ -216,15 +235,18 @@ class Location:
 
 
 class Quest:
-    def __init__(self, giver='', previous_quest=None, objective='',
-                 target_location='', reward='', is_completed=False):
+    def __init__(self, giver='', previous_quest='', objective='',
+                 target_location='', reward='', is_completed=False, tag=None):
         self.giver = giver
         self.previous_quest = previous_quest
         self.objective = objective
         self.target_location = target_location
         self.reward = reward
         self.is_completed = is_completed
-        self.tag = {'type': self.__class__.__name__, 'name': self.giver}
+        self.tag = tag if tag else {'type': self.__class__.__name__, 'name': self.giver}
+
+    def __eq__(self, other):
+        return self.data() == other.data()
 
     def edit_giver(self, giver):
         self.giver = giver
