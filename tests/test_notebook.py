@@ -1,4 +1,3 @@
-from json import load
 import os
 import filecmp
 from datetime import datetime
