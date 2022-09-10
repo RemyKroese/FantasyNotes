@@ -67,7 +67,7 @@ def test_can_save_campaign_to_file():
                           quests=[quest1, quest2], notes=[note1, note2])
 
     expected_result = ASSETS + 'expected_campaign_data.json'
-    result_file_path = 'saves\\campaign_1.json'
+    result_file_path = 'saves/campaign_1.json'
     if os.path.exists(result_file_path):
         os.remove(result_file_path)
     notebook.save_campaign_data(campaign)
