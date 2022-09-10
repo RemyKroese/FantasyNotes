@@ -3,13 +3,15 @@ from datetime import datetime
 
 
 class Campaign:
-    def __init__(self, name, characters: list[Character] = [], locations: list[Location] = [],
-                 creatures: list[Creature] = [], quests: list[Quest] = [], notes: list[Note] = []):
+    def __init__(self, name, characters: list[Character] = [],
+                 locations: list[Location] = [], creatures: list[Creature] = [],
+                 quests: list[Quest] = [],  items: list[Item] = [], notes: list[Note] = []):
         self.name = name
         self.characters = characters
         self.locations = locations
         self.creatures = creatures
         self.quests = quests
+        self.items = items
         self.notes = notes
 
     def edit_name(self, new_name):
@@ -38,6 +40,12 @@ class Campaign:
 
     def remove_quest(self, quest):
         self.quests.remove(quest)
+
+    def add_item(self, item):
+        self.items.append(item)
+
+    def remove_item(self, item):
+        self.items.remove(item)
 
     def add_note(self, note):
         self.notes.append(note)

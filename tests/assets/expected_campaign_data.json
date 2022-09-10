@@ -151,6 +151,35 @@
             }
         }
     ],
+    "items": [
+        {
+            "name": "Lightbringer",
+            "i_type": "magic weapon",
+            "stats": [
+                "+1 to attack rolls",
+                "+1d6 bonus damage to undead"
+            ],
+            "is_magical": true,
+            "is_cursed": false,
+            "tag": {
+                "type": "Item",
+                "name": "Lightbringer"
+            }
+        },
+        {
+            "name": "Dagger+1",
+            "i_type": "Melee weapon",
+            "stats": [
+                "+1 to attack rolls"
+            ],
+            "is_magical": false,
+            "is_cursed": false,
+            "tag": {
+                "type": "Item",
+                "name": "Dagger+1"
+            }
+        }
+    ],
     "notes": [
         {
             "text": "Jeremiah comes from Waterdeep",
