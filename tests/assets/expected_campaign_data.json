@@ -1,0 +1,172 @@
+{
+    "name": "campaign_1",
+    "characters": [
+        {
+            "name": "Jeremiah",
+            "species": "Half-Elf",
+            "c_class": "Rogue",
+            "alignment": "Chaotic Neutral",
+            "profession": "Criminal",
+            "abilities": [
+                "Uncanny Dodge",
+                "Fast Hands",
+                "Sneak Attack"
+            ],
+            "possessions": [
+                "100 Gold",
+                "3 Potion of Healing"
+            ],
+            "is_playable": true,
+            "is_alive": true,
+            "tag": {
+                "type": "Character",
+                "name": "Jeremiah"
+            }
+        },
+        {
+            "name": "Knurble Wobblebob",
+            "species": "Gnome",
+            "c_class": "Wizard",
+            "alignment": "Chaotic Good",
+            "profession": "Sage",
+            "abilities": [
+                "Arcane Recovery",
+                "Gnome Cunning"
+            ],
+            "possessions": [
+                "10 Gold"
+            ],
+            "is_playable": true,
+            "is_alive": true,
+            "tag": {
+                "type": "Character",
+                "name": "Knurble Wobblebob"
+            }
+        }
+    ],
+    "locations": [
+        {
+            "name": "Waterdeep",
+            "l_type": "City",
+            "tag": {
+                "type": "Location",
+                "name": "Waterdeep"
+            }
+        },
+        {
+            "name": "Phandalin",
+            "l_type": "Town",
+            "tag": {
+                "type": "Location",
+                "name": "Phandalin"
+            }
+        }
+    ],
+    "creatures": [
+        {
+            "species": "Rat",
+            "agressiveness": "Hostile",
+            "attacks": [
+                "Bite",
+                "Scratch"
+            ],
+            "resistances": [
+                "Piercing",
+                "Blunt"
+            ],
+            "immunities": [
+                "Fire"
+            ],
+            "tag": {
+                "type": "Creature",
+                "name": "Rat"
+            }
+        },
+        {
+            "species": "Demon",
+            "agressiveness": "Hostile",
+            "attacks": [
+                "Claw",
+                "Second Attack"
+            ],
+            "resistances": [
+                "Slashing"
+            ],
+            "immunities": [
+                "Fire",
+                "Thunder",
+                "Lightning"
+            ],
+            "tag": {
+                "type": "Creature",
+                "name": "Demon"
+            }
+        }
+    ],
+    "quests": [
+        {
+            "giver": "Arthur",
+            "previous_quest": {
+                "giver": "Arthur",
+                "previous_quest": {
+                    "giver": "Arthur",
+                    "previous_quest": null,
+                    "objective": "Find the lost cave",
+                    "target_location": "The forest",
+                    "reward": "20 Gold",
+                    "is_completed": true,
+                    "tag": {
+                        "type": "Quest",
+                        "name": "Arthur"
+                    }
+                },
+                "objective": "Investigate the lost cave",
+                "target_location": "The lost cave",
+                "reward": "50 Gold",
+                "is_completed": true,
+                "tag": {
+                    "type": "Quest",
+                    "name": "Arthur"
+                }
+            },
+            "objective": "Kill the dragon.",
+            "target_location": "Dragon's lair in the lost cave",
+            "reward": "100 Gold",
+            "is_completed": false,
+            "tag": {
+                "type": "Quest",
+                "name": "Arthur"
+            }
+        },
+        {
+            "giver": "Waterdeep's mayor",
+            "previous_quest": null,
+            "objective": "Provide security during the festival",
+            "target_location": "Waterdeep's city centre",
+            "reward": "100 Gold",
+            "is_completed": false,
+            "tag": {
+                "type": "Quest",
+                "name": "Waterdeep's mayor"
+            }
+        }
+    ],
+    "notes": [
+        {
+            "text": "Jeremiah comes from Waterdeep",
+            "timestamp": "2022-09-10T00:00:00",
+            "tags": [
+                "Jeremiah",
+                "Waterdeep"
+            ]
+        },
+        {
+            "text": "The dragon is near Neverwinter",
+            "timestamp": "2022-09-10T00:00:00",
+            "tags": [
+                "Dragon",
+                "Neverwinter"
+            ]
+        }
+    ]
+}
