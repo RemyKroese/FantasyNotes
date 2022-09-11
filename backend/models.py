@@ -32,7 +32,7 @@ class Campaign:
     def remove_location(self, location):
         self.locations.remove(location)
 
-    def add_creaturer(self, creature):
+    def add_creature(self, creature):
         self.creatures.append(creature)
 
     def remove_creature(self, creature):

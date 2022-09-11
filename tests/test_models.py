@@ -10,10 +10,6 @@ import pytest
 ####################################################################################################
 
 TEST_CAMPAIGN_NAME = 'my campaign'
-TEST_NOTE_1 = m.Note(text='note 1', tags=['Tag1', 'Tag_ALL'])
-TEST_NOTE_2 = m.Note(text='note 2', tags=['Tag2', 'Tag_ALL'])
-TEST_NOTE_3 = m.Note(text='new note 1', tags=['Tag1', 'Tag2', 'Tag_ALL'])
-TEST_NOTE_4 = m.Note(text='existing note 1')
 
 
 def test_can_edit_campaign_name():
@@ -21,6 +17,168 @@ def test_can_edit_campaign_name():
     campaign = m.Campaign(name=TEST_CAMPAIGN_NAME)
     campaign.edit_name(TEST_NAME)
     assert campaign.name == TEST_NAME
+
+
+TEST_CHAR_1 = m.Character(name='char 1')
+TEST_CHAR_2 = m.Character(name='char 2')
+TEST_CHAR_3 = m.Character(name='new char 1')
+TEST_CHAR_4 = m.Character(name='existing char 1')
+
+
+@pytest.mark.parametrize('new_chars, existing_chars, expected_chars_list', [
+    ([TEST_CHAR_1], [], [TEST_CHAR_1]),
+    ([TEST_CHAR_1, TEST_CHAR_2], [], [TEST_CHAR_1, TEST_CHAR_2]),
+    ([TEST_CHAR_3], [TEST_CHAR_4], [TEST_CHAR_4, TEST_CHAR_3])])
+def test_can_add_characters_to_campaign(new_chars, existing_chars, expected_chars_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, characters=existing_chars)
+    for char in new_chars:
+        campaign.add_character(char)
+    for i in range(len(campaign.characters)):
+        assert campaign.characters[i] == expected_chars_list[i]
+
+
+@pytest.mark.parametrize('removed_chars, existing_chars, expected_chars_list', [
+    ([TEST_CHAR_1], [TEST_CHAR_1], []),
+    ([TEST_CHAR_1], [TEST_CHAR_1, TEST_CHAR_2], [TEST_CHAR_2]),
+    ([TEST_CHAR_3, TEST_CHAR_1],  [TEST_CHAR_1, TEST_CHAR_2, TEST_CHAR_3, TEST_CHAR_4],
+     [TEST_CHAR_2, TEST_CHAR_4])])
+def test_can_remove_characters_from_campaign(removed_chars, existing_chars, expected_chars_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, characters=existing_chars)
+    for char in removed_chars:
+        campaign.remove_character(char)
+    for i in range(len(campaign.characters)):
+        assert campaign.characters[i] == expected_chars_list[i]
+
+
+TEST_LOC_1 = m.Location(name='loc 1')
+TEST_LOC_2 = m.Location(name='loc 2')
+TEST_LOC_3 = m.Location(name='new loc 1')
+TEST_LOC_4 = m.Location(name='existing loc 1')
+
+
+@pytest.mark.parametrize('new_locs, existing_locs, expected_locs_list', [
+    ([TEST_LOC_1], [], [TEST_LOC_1]),
+    ([TEST_LOC_1, TEST_LOC_2], [], [TEST_LOC_1, TEST_LOC_2]),
+    ([TEST_LOC_3], [TEST_LOC_4], [TEST_LOC_4, TEST_LOC_3])])
+def test_can_add_locations_to_campaign(new_locs, existing_locs, expected_locs_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, locations=existing_locs)
+    for loc in new_locs:
+        campaign.add_location(loc)
+    for i in range(len(campaign.locations)):
+        assert campaign.locations[i] == expected_locs_list[i]
+
+
+@pytest.mark.parametrize('removed_locs, existing_locs, expected_locs_list', [
+    ([TEST_LOC_1], [TEST_LOC_1], []),
+    ([TEST_LOC_1], [TEST_LOC_1, TEST_LOC_2], [TEST_LOC_2]),
+    ([TEST_LOC_3, TEST_LOC_1],  [TEST_LOC_1, TEST_LOC_2, TEST_LOC_3, TEST_LOC_4],
+     [TEST_LOC_2, TEST_LOC_4])])
+def test_can_remove_locations_from_campaign(removed_locs, existing_locs, expected_locs_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, locations=existing_locs)
+    for loc in removed_locs:
+        campaign.remove_location(loc)
+    for i in range(len(campaign.locations)):
+        assert campaign.locations[i] == expected_locs_list[i]
+
+
+TEST_CRE_1 = m.Creature(species='cre 1')
+TEST_CRE_2 = m.Creature(species='cre 2')
+TEST_CRE_3 = m.Creature(species='new cre 1')
+TEST_CRE_4 = m.Creature(species='existing cre 1')
+
+
+@pytest.mark.parametrize('new_cres, existing_cres, expected_cres_list', [
+    ([TEST_CRE_1], [], [TEST_CRE_1]),
+    ([TEST_CRE_1, TEST_CRE_2], [], [TEST_CRE_1, TEST_CRE_2]),
+    ([TEST_CRE_3], [TEST_CRE_4], [TEST_CRE_4, TEST_CRE_3])])
+def test_can_add_creatures_to_campaign(new_cres, existing_cres, expected_cres_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, creatures=existing_cres)
+    for cre in new_cres:
+        campaign.add_creature(cre)
+    for i in range(len(campaign.creatures)):
+        assert campaign.creatures[i] == expected_cres_list[i]
+
+
+@pytest.mark.parametrize('removed_cres, existing_cres, expected_cres_list', [
+    ([TEST_CRE_1], [TEST_CRE_1], []),
+    ([TEST_CRE_1], [TEST_CRE_1, TEST_CRE_2], [TEST_CRE_2]),
+    ([TEST_CRE_3, TEST_CRE_1],  [TEST_CRE_1, TEST_CRE_2, TEST_CRE_3, TEST_CRE_4],
+     [TEST_CRE_2, TEST_CRE_4])])
+def test_can_remove_remove_creatures_from_campaign(removed_cres, existing_cres, expected_cres_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, creatures=existing_cres)
+    for cre in removed_cres:
+        campaign.remove_creature(cre)
+    for i in range(len(campaign.creatures)):
+        assert campaign.creatures[i] == expected_cres_list[i]
+
+
+TEST_QUEST_1 = m.Quest(giver='quest 1')
+TEST_QUEST_2 = m.Quest(giver='quest 2')
+TEST_QUEST_3 = m.Quest(giver='new quest 1')
+TEST_QUEST_4 = m.Quest(giver='existing quest 1')
+
+
+@pytest.mark.parametrize('new_quests, existing_quests, expected_quests_list', [
+    ([TEST_QUEST_1], [], [TEST_QUEST_1]),
+    ([TEST_QUEST_1, TEST_QUEST_2], [], [TEST_QUEST_1, TEST_QUEST_2]),
+    ([TEST_QUEST_3], [TEST_QUEST_4], [TEST_QUEST_4, TEST_QUEST_3])])
+def test_can_add_quests_to_campaign(new_quests, existing_quests, expected_quests_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, quests=existing_quests)
+    for quest in new_quests:
+        campaign.add_quest(quest)
+    for i in range(len(campaign.quests)):
+        assert campaign.quests[i] == expected_quests_list[i]
+
+
+@pytest.mark.parametrize('removed_quests, existing_quests, expected_quests_list', [
+    ([TEST_QUEST_1], [TEST_QUEST_1], []),
+    ([TEST_QUEST_1], [TEST_QUEST_1, TEST_QUEST_2], [TEST_QUEST_2]),
+    ([TEST_QUEST_3, TEST_QUEST_1],  [TEST_QUEST_1, TEST_QUEST_2, TEST_QUEST_3, TEST_QUEST_4],
+     [TEST_QUEST_2, TEST_QUEST_4])])
+def test_can_remove_remove_quests_from_campaign(removed_quests, existing_quests,
+                                                expected_quests_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, quests=existing_quests)
+    for quest in removed_quests:
+        campaign.remove_quest(quest)
+    for i in range(len(campaign.quests)):
+        assert campaign.quests[i] == expected_quests_list[i]
+
+
+TEST_ITEM_1 = m.Item(name='item 1')
+TEST_ITEM_2 = m.Item(name='item 2')
+TEST_ITEM_3 = m.Item(name='new item 1')
+TEST_ITEM_4 = m.Item(name='existing item 1')
+
+
+@pytest.mark.parametrize('new_items, existing_items, expected_items_list', [
+    ([TEST_ITEM_1], [], [TEST_ITEM_1]),
+    ([TEST_ITEM_1, TEST_ITEM_2], [], [TEST_ITEM_1, TEST_ITEM_2]),
+    ([TEST_ITEM_3], [TEST_ITEM_4], [TEST_ITEM_4, TEST_ITEM_3])])
+def test_can_add_items_to_campaign(new_items, existing_items, expected_items_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, items=existing_items)
+    for item in new_items:
+        campaign.add_item(item)
+    for i in range(len(campaign.items)):
+        assert campaign.items[i] == expected_items_list[i]
+
+
+@pytest.mark.parametrize('removed_items, existing_items, expected_items_list', [
+    ([TEST_ITEM_1], [TEST_ITEM_1], []),
+    ([TEST_ITEM_1], [TEST_ITEM_1, TEST_ITEM_2], [TEST_ITEM_2]),
+    ([TEST_ITEM_3, TEST_ITEM_1],  [TEST_ITEM_1, TEST_ITEM_2, TEST_ITEM_3, TEST_ITEM_4],
+     [TEST_ITEM_2, TEST_ITEM_4])])
+def test_can_remove_remove_items_from_campaign(removed_items, existing_items, expected_items_list):
+    campaign = m.Campaign(TEST_CAMPAIGN_NAME, items=existing_items)
+    for item in removed_items:
+        campaign.remove_item(item)
+    for i in range(len(campaign.items)):
+        assert campaign.items[i] == expected_items_list[i]
+
+
+TEST_NOTE_1 = m.Note(text='note 1', tags=['Tag1', 'Tag_ALL'])
+TEST_NOTE_2 = m.Note(text='note 2', tags=['Tag2', 'Tag_ALL'])
+TEST_NOTE_3 = m.Note(text='new note 1', tags=['Tag1', 'Tag2', 'Tag_ALL'])
+TEST_NOTE_4 = m.Note(text='existing note 1')
 
 
 @pytest.mark.parametrize('new_notes, existing_notes, expected_notes_list', [
